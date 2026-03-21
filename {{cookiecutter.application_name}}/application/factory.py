@@ -8,6 +8,7 @@ def create_app(config_filename):
     app.config.from_object(config_filename)
     register_errorhandlers(app)
     register_blueprints(app)
+    register_extensions(app)
     return app
 
 def register_errorhandlers(app):
