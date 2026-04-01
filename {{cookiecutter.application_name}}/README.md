@@ -1,18 +1,33 @@
 # {{ cookiecutter.application_name }}
 
-
 #### Prerequisites
 
 1. Python 3.13+
 2. [uv](https://docs.astral.sh/uv/getting-started/installation/)
+3. Node.js 22+
 
+#### Setup
 
     make init
 
-This will sync dependencies and install pre-commit hooks.
+This will sync dependencies, install pre-commit hooks, and build CSS.
 
-Run the app:
+#### Run locally
 
     uv run flask run
 
-and have a look at http://localhost:5050
+#### Run with Docker
+
+    make serve
+
+App available at http://localhost:5050
+
+#### CSS
+
+Build once:
+
+    make css-build
+
+Watch for changes during development:
+
+    make css-watch
