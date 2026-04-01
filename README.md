@@ -1,31 +1,41 @@
-flask-cookiecutter
-==================
+# flask-template
 
-A template for flask applications using [cookiecutter](https://github.com/audreyr/cookiecutter)
+A [Copier](https://copier.readthedocs.io/en/stable/) template for Flask applications.
 
-
-#### Prerequisites
+## Prerequisites
 
 1. Python 3.13+
 2. [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
-
-#### How to use it
+## How to use it
 
 Run:
 
-    uvx cookiecutter https://github.com/ashimali/flask-cookiecutter.git
+    uvx copier copy gh:ashimali/flask-cookiecutter my-app
 
-You will be prompted to answer some basic questions about your application, including the name. The cookiecutter will create a directory for your app (named after the name you answered.)
+You will be prompted for an application name and GitHub username. Copier will create a directory with your project scaffolded out.
 
-
-#### What happens next
-
-cd into the newly created directory for the application.
+Then cd into the new directory and run:
 
     make init
 
 This will sync dependencies, install pre-commit hooks, and build CSS.
+
+## Updating an existing project
+
+When the template is updated, pull changes into your project:
+
+    cd my-app
+    uvx copier update
+
+## What's in the generated project
+
+- Flask with application factory pattern
+- SQLAlchemy + PostgreSQL
+- Tailwind CSS + DaisyUI
+- Docker Compose dev environment
+- pytest, ruff, pre-commit
+- uv for dependency management
 
 Run with Docker:
 
@@ -33,16 +43,7 @@ Run with Docker:
 
 App available at http://localhost:5050
 
-#### CSS
+## Developing this template
 
-Build once:
-
-    make css-build
-
-Watch for changes during development:
-
-    make css-watch
-
-#### Upgrade dependencies
-
-    make upgrade
+    make init     # install pre-commit hooks
+    make lint     # run linters across all files

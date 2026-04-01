@@ -1,7 +1,9 @@
 from dotenv import load_dotenv
 from flask import Flask, render_template
+from werkzeug.exceptions import HTTPException
 
 load_dotenv()
+
 
 def create_app(config_filename):
     app = Flask(__name__)
@@ -11,18 +13,25 @@ def create_app(config_filename):
     register_extensions(app)
     return app
 
+
 def register_errorhandlers(app):
     def render_error(error):
-        # If a HTTPException, pull the `code` attribute; default to 500
-        error_code = getattr(error, 'code', 500)
-        return render_template("{0}.html".format(error_code)), error_code
-    for errcode in [401, 404, 500]:
-        app.errorhandler(errcode)(render_error)
-    return None
+        error_code = getattr(error, "code", 500)
+        error_description = getattr(
+            error, "description", "An unexpected error occurred."
+        )
+        return render_template(
+            "error.html", code=error_code, message=error_description
+        ), error_code
+
+    app.errorhandler(HTTPException)(render_error)
+
 
 def register_blueprints(app):
     from application.frontend.views import frontend
+
     app.register_blueprint(frontend)
+
 
 def register_extensions(app):
     pass

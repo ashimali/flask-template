@@ -6,12 +6,12 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
-  <title>{% block title %}{% endraw %}{{ cookiecutter.application_name }}{% raw %}{% endblock %}</title>
+  <title>{% block title %}{% endraw %}{{ application_name }}{% raw %}{% endblock %}</title>
 </head>
 <body>
 <div class="container mx-auto px-4">
   <nav class="py-4">
-    <h1 class="text-2xl font-bold"><a href="/">{% block titlebar_service %}{% endraw %}{{ cookiecutter.application_name }}{% raw %}{% endblock %}</a></h1>
+    <h1 class="text-2xl font-bold"><a href="/">{% block titlebar_service %}{% endraw %}{{ application_name }}{% raw %}{% endblock %}</a></h1>
   </nav>
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
