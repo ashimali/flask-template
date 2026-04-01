@@ -27,10 +27,6 @@ cd into the newly created directory for the application.
 
 This will sync dependencies, install pre-commit hooks, and build CSS.
 
-Run locally:
-
-    uv run flask run
-
 Run with Docker:
 
     make serve

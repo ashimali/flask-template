@@ -4,17 +4,13 @@
 
 1. Python 3.13+
 2. [uv](https://docs.astral.sh/uv/getting-started/installation/)
-3. Node.js 22+
+3. Node.js 22+ (frontend build tooling)
 
 #### Setup
 
     make init
 
 This will sync dependencies, install pre-commit hooks, and build CSS.
-
-#### Run locally
-
-    uv run flask run
 
 #### Run with Docker
 
