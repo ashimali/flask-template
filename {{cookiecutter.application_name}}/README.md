@@ -31,3 +31,7 @@ Build once:
 Watch for changes during development:
 
     make css-watch
+
+#### Upgrade dependencies
+
+    make upgrade

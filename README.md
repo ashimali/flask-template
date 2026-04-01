@@ -25,10 +25,28 @@ cd into the newly created directory for the application.
 
     make init
 
-This will sync dependencies and install pre-commit hooks.
+This will sync dependencies, install pre-commit hooks, and build CSS.
 
-Run the app:
+Run locally:
 
     uv run flask run
 
-and have a look at http://localhost:5050
+Run with Docker:
+
+    make serve
+
+App available at http://localhost:5050
+
+#### CSS
+
+Build once:
+
+    make css-build
+
+Watch for changes during development:
+
+    make css-watch
+
+#### Upgrade dependencies
+
+    make upgrade
