@@ -1,0 +1,14 @@
+_subdirectory: template
+
+_templates_suffix: .jinja
+
+application_name:
+  type: str
+  help: Name of the application
+
+github_name:
+  type: str
+  help: Github user or organisation name
+
+_tasks:
+  - command: echo "Run 'make init' to set up the project"
