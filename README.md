@@ -4,7 +4,7 @@ A [Copier](https://copier.readthedocs.io/en/stable/) template for Flask applicat
 
 ## Prerequisites
 
-1. Python 3.13+
+1. Python 3.14+
 2. [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 ## How to use it
