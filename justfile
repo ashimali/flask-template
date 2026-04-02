@@ -1,5 +1,5 @@
-init::
+init:
 	pre-commit install
 
-lint::
+lint:
 	pre-commit run --all-files

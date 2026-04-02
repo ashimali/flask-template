@@ -10,9 +10,12 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --dev --no-install-project
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --dev --no-install-project
+
 COPY . .
-RUN uv sync --frozen --dev
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --dev
 
 EXPOSE 5050
 CMD ["sh", "-c", "npm run css:build && npm run css:watch & uv run flask run --host=0.0.0.0 --port=5050"]

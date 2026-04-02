@@ -6,6 +6,11 @@ class Config(object):
     APP_ROOT = os.path.abspath(os.path.dirname(__file__))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_ROOT, os.pardir))
     SECRET_KEY = os.environ["SECRET_KEY"]
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = DATABASE_URL
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = False
+    DEBUG = False
 
 
 class DevelopmentConfig(Config):
@@ -15,3 +20,4 @@ class DevelopmentConfig(Config):
 
 class TestConfig(Config):
     TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("TEST_DATABASE_URL")

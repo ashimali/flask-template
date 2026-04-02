@@ -11,4 +11,4 @@ github_name:
   help: Github user or organisation name
 
 _tasks:
-  - command: echo "Run 'make init' to set up the project"
+  - command: echo "Run 'just init' to set up the project"

@@ -1,0 +1,41 @@
+default: (help)
+
+help:
+   @echo "what?"
+
+init:
+	git init
+	uv sync
+	uv run pre-commit install
+	npm install
+	npm run css:build
+
+upgrade:
+	uv lock --upgrade
+	uv sync
+	npm install
+	npm run css:build
+
+build-css:
+	npm run css:build
+
+watch-css:
+	npm run css:watch
+
+serve:
+	docker compose up --build
+
+migrate arg:
+    docker compose exec web uv run flask db migrate -m "{{arg}}"
+
+db-upgrade:
+    docker compose exec web uv run flask db upgrade
+
+db-downgrade:
+    docker compose exec web uv run flask db downgrade
+
+logs:
+    docker compose logs -f web
+
+test:
+    docker compose run --rm web uv run pytest

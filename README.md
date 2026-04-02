@@ -6,6 +6,7 @@ A [Copier](https://copier.readthedocs.io/en/stable/) template for Flask applicat
 
 1. Python 3.14+
 2. [uv](https://docs.astral.sh/uv/getting-started/installation/)
+3. [just](https://just.systems/man/en/installation.html)
 
 ## How to use it
 
@@ -17,7 +18,7 @@ You will be prompted for an application name and GitHub username. Copier will cr
 
 Then cd into the new directory and run:
 
-    make init
+    just init
 
 This will sync dependencies, install pre-commit hooks, and build CSS.
 
@@ -39,11 +40,11 @@ When the template is updated, pull changes into your project:
 
 Run with Docker:
 
-    make serve
+    just serve
 
 App available at http://localhost:5050
 
 ## Developing this template
 
-    make init     # install pre-commit hooks
-    make lint     # run linters across all files
+    just init     # install pre-commit hooks
+    just lint     # run linters across all files

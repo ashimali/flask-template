@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from werkzeug.exceptions import HTTPException
+from application.models import *  # noqa
 
 load_dotenv()
 
@@ -34,4 +35,7 @@ def register_blueprints(app):
 
 
 def register_extensions(app):
-    pass
+    from application.extensions import db, migrate
+
+    db.init_app(app)
+    migrate.init_app(app, db)
