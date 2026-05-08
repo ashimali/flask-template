@@ -1,0 +1,64 @@
+default: (help)
+
+help:
+	@just --list
+
+{% if use_devcontainer -%}
+# Run these from the dev container terminal — uv, flask and pytest are
+# available directly because the IDE is attached to the web service.
+
+init:
+	git init
+	uv run pre-commit install
+
+upgrade:
+	uv lock --upgrade
+	uv sync
+
+serve:
+	uv run flask run --host=0.0.0.0 --port=5050
+
+migrate message:
+	uv run flask db migrate -m "{% raw %}{{message}}{% endraw %}"
+
+dbup:
+	uv run flask db upgrade
+
+dbdown:
+	uv run flask db downgrade
+
+logs:
+	docker compose logs -f web
+
+test:
+	uv run pytest
+{%- else -%}
+# Every uv/flask/pytest invocation is routed through the web container
+# so nothing depends on a host Python toolchain.
+
+init:
+	git init
+	docker compose build
+
+upgrade:
+	docker compose run --rm web uv lock --upgrade
+	docker compose build
+
+serve:
+	docker compose up --build
+
+migrate message:
+	docker compose exec web uv run flask db migrate -m "{% raw %}{{message}}{% endraw %}"
+
+dbup:
+	docker compose exec web uv run flask db upgrade
+
+dbdown:
+	docker compose exec web uv run flask db downgrade
+
+logs:
+	docker compose logs -f web
+
+test:
+	docker compose run --rm web uv run pytest
+{%- endif %}

@@ -10,5 +10,10 @@ github_name:
   type: str
   help: Github user or organisation name
 
+use_devcontainer:
+  type: bool
+  help: Include a VS Code dev container configuration?
+  default: true
+
 _tasks:
   - command: echo "Run 'just init' to set up the project"

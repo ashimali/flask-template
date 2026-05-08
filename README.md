@@ -33,10 +33,12 @@ When the template is updated, pull changes into your project:
 
 - Flask with application factory pattern
 - SQLAlchemy + PostgreSQL
-- Tailwind CSS + DaisyUI
+- Pico CSS
 - Docker Compose dev environment
 - pytest, ruff, pre-commit
 - uv for dependency management
+
+No frontend build needed
 
 Run with Docker:
 

@@ -1,33 +1,70 @@
 # {{ application_name }}
 
+{% if use_devcontainer -%}
+## Getting started (Dev Container)
+
+This project ships with a VS Code dev container so the entire toolchain
+(Python, `uv`, Flask, Postgres) runs inside Docker.
+
 #### Prerequisites
 
-1. Python 3.14+
-2. [uv](https://docs.astral.sh/uv/getting-started/installation/)
-3. Node.js 22+ (frontend build tooling)
+1. [Docker](https://docs.docker.com/get-docker/)
+2. [VS Code](https://code.visualstudio.com/) with the
+   [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+3. [just](https://just.systems/) (optional — only needed if you run recipes from the host)
 
 #### Setup
 
-    make init
+1. Open this folder in VS Code and choose **Reopen in Container** when prompted.
+2. Once the container is built, in the integrated terminal run:
 
-This will sync dependencies, install pre-commit hooks, and build CSS.
+       just init
 
-#### Run with Docker
+3. Start the dev server:
 
-    make serve
+       just serve
 
-App available at http://localhost:5050
+The app is served on http://localhost:5050.
 
-#### CSS
+> ⚠️ **Do not run `uv`, `flask`, or `pytest` from your host shell.** The IDE
+> terminal is attached to the `web` container — run all Python tooling there.
+> Running these on the host bypasses the Docker environment and will produce
+> inconsistent results (missing dependencies, no DB connectivity, etc.).
+{%- else -%}
+## Getting started
 
-Build once:
+All Python tooling runs inside the `web` container. The `just` recipes wrap
+each command with `docker compose` so you don't need `uv`, Flask, or pytest
+installed on your host.
 
-    make css-build
+#### Prerequisites
 
-Watch for changes during development:
+1. [Docker](https://docs.docker.com/get-docker/)
+2. [just](https://just.systems/)
 
-    make css-watch
+#### Setup
 
-#### Upgrade dependencies
+    just init
+    just serve
 
-    make upgrade
+The app is served on http://localhost:5050.
+
+> ⚠️ **Do not run `uv`, `flask`, or `pytest` directly on your host.** Every
+> recipe in the `justfile` routes through `docker compose exec web ...` for a
+> reason — running these tools on the host bypasses the container's database
+> and dependencies and will produce inconsistent results. If a recipe is
+> missing, add a new one rather than running the underlying command on the host.
+{%- endif %}
+
+## Common tasks
+
+| Command                  | What it does                              |
+| ------------------------ | ----------------------------------------- |
+| `just init`              | Initial project setup                     |
+| `just serve`             | Start the Flask dev server on `:5050`     |
+| `just migrate "<msg>"`   | Generate a new database migration         |
+| `just db-upgrade`        | Apply pending migrations                  |
+| `just db-downgrade`      | Roll back the last migration              |
+| `just test`              | Run the test suite                        |
+| `just logs`              | Tail logs from the `web` container        |
+| `just upgrade`           | Bump and re-sync dependencies             |

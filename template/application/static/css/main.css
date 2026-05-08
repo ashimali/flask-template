@@ -1,0 +1,8 @@
+nav h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p.error {
+  color: var(--pico-color-red-500);
+}

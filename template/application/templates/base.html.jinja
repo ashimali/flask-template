@@ -5,23 +5,24 @@
   <meta charset="utf-8">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
   <title>{% block title %}{% endraw %}{{ application_name }}{% raw %}{% endblock %}</title>
 </head>
 <body>
-<div class="container mx-auto px-4">
-  <nav class="py-4">
-    <h1 class="text-2xl font-bold"><a href="/">{% block titlebar_service %}{% endraw %}{{ application_name }}{% raw %}{% endblock %}</a></h1>
+<main class="container">
+  <nav>
+    <h1><a href="/">{% block titlebar_service %}{% endraw %}{{ application_name }}{% raw %}{% endblock %}</a></h1>
   </nav>
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
-        <p class="p-4 mb-4 border-l-4 {% if category == 'error' %}border-red-500 bg-red-50{% else %}border-purple-500 bg-gray-100{% endif %}">{{ message }}</p>
+        <p {% if category == 'error' %}class="error"{% endif %}>{{ message }}</p>
       {% endfor %}
     {% endif %}
   {% endwith %}
   {% block content %}{% endblock %}
-</div>
+</main>
 </body>
 </html>
 {% endraw %}

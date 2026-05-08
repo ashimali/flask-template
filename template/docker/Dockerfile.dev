@@ -1,14 +1,10 @@
 FROM ghcr.io/astral-sh/uv:python3.14-bookworm-slim AS python
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates curl \
-    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
-    && apt-get install -y --no-install-recommends nodejs \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
 COPY pyproject.toml uv.lock ./
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --dev --no-install-project
@@ -18,4 +14,4 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --dev
 
 EXPOSE 5050
-CMD ["sh", "-c", "npm run css:build && npm run css:watch & uv run flask run --host=0.0.0.0 --port=5050"]
+CMD ["uv", "run", "flask", "run", "--host=0.0.0.0", "--port=5050"]
