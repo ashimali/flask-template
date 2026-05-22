@@ -50,3 +50,6 @@ App available at http://localhost:5050
 
     just init     # install pre-commit hooks
     just lint     # run linters across all files
+
+
+#TODO - test updates
